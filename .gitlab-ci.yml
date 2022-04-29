@@ -24,7 +24,7 @@ lint-job:
   script:
     - echo "Running lint"
     - npm run eslint
-      
+
 test-job:
   stage: test
   script:
@@ -42,8 +42,14 @@ build-job:
   artifacts:
     paths:
       - ./build
+  only:
+    - sandbox
+    - master
 
 deploy-job:
   stage: deploy
   script:
     - echo "deploying..."
+  only:
+    - sandbox
+    - master
