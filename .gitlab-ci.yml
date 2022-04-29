@@ -33,16 +33,8 @@ build-job:
   artifacts:
     paths:
       - ./build
-  needs:
-    - job: test-job
-      artifacts: false
 
 deploy-job:
   stage: deploy
   script:
     - echo "deploying..."
-  needs:
-    - job: install-job
-      artifacts: false
-    - job: test-job
-      artifacts: false
