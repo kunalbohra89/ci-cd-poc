@@ -3,6 +3,8 @@ stages:
   - build
   - deploy
 
+image: node:latest
+
 test-job:
   stage: test
   script:
