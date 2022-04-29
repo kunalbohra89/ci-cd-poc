@@ -19,11 +19,15 @@ install-job:
     paths:
       - ./node_modules
 
-test-job:
+lint-job:
   stage: test
   script:
     - echo "Running lint"
     - npm run eslint
+      
+test-job:
+  stage: test
+  script:
     - echo "Running tests"
     - npm run test
   artifacts:
