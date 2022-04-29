@@ -9,7 +9,7 @@ test-job:
   stage: test
   script:
     - echo "Running lint"
-    - npm eslint
+    - npm run eslint
     - echo "Running tests"
     - npm run test
 
