@@ -1,9 +1,15 @@
 stages:
+  - install
   - test
   - build
   - deploy
 
 image: node:latest
+
+install-job:
+  stage: install
+  script:
+    - npm install
 
 test-job:
   stage: test
@@ -23,4 +29,3 @@ deploy-job:
   stage: deploy
   script:
     - echo "deploying..."
-
