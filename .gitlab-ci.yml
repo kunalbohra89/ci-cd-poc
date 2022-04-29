@@ -33,14 +33,16 @@ build-job:
   artifacts:
     paths:
       - ./build
-  only:
-    - sandbox
-    - master
+  needs:
+    - job: test-job
+      artifacts: false
 
 deploy-job:
   stage: deploy
   script:
     - echo "deploying..."
-  only:
-    - sandbox
-    - master
+  needs:
+    - job: install-job
+      artifacts: false
+    - job: test-job
+      artifacts: false
