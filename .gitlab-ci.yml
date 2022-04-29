@@ -13,7 +13,6 @@ install-job:
   artifacts:
     paths:
       - ./node_modules
-    expire_in: 1 day
 
 test-job:
   stage: test
@@ -22,12 +21,18 @@ test-job:
     - npm run eslint
     - echo "Running tests"
     - npm run test
+  artifacts:
+    paths:
+      - ./coverage
 
 build-job:
   stage: build
   script:
     - echo "building..."
     - npm run build
+  artifacts:
+    paths:
+      - ./build
 
 deploy-job:
   stage: deploy
