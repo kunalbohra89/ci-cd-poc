@@ -1,0 +1,24 @@
+stages:
+  - test
+  - build
+  - deploy
+
+test-job:
+  stage: test
+  script:
+    - echo "Running lint"
+    - npm eslint
+    - echo "Running tests"
+    - npm run test
+
+build-job:
+  stage: build
+  script:
+    - echo "building..."
+    - npm run build
+
+deploy-job:
+  stage: deploy
+  script:
+    - echo "deploying..."
+
