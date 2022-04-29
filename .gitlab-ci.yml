@@ -6,10 +6,17 @@ stages:
 
 image: node:latest
 
+cache:
+  key:
+    files:
+      - package-lock.json
+  paths:
+    - .npm/
+
 install-job:
   stage: install
   script:
-    - npm install
+    - npm ci --cache .npm --prefer-offline
   artifacts:
     paths:
       - ./node_modules
