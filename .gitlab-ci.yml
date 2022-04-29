@@ -22,10 +22,6 @@ test-job:
     - echo "Running tests"
     - npm run test
   artifacts:
-    reports:
-      coverage_report:
-        coverage_format: cobertura
-        path: coverage/clover.xml
     paths:
       - ./coverage
 
@@ -37,6 +33,9 @@ build-job:
   artifacts:
     paths:
       - ./build
+  only:
+    - sandbox
+    - master
 
 deploy-job:
   stage: deploy
