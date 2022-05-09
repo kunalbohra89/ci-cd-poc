@@ -1,0 +1,43 @@
+name: CI
+
+on: push
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Use Node.js 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+        
+      # - name: Cache node_modules
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: ./node_modules
+      #     key: ${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+      - name: Lint test
+        run: npm run eslint
+
+      - name: test
+        run: npm run test
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage
+          path: ./coverage
+
+      - name: build
+        run: npm run build
+
+      - name: deploy
+        run: echo "deploying..."
