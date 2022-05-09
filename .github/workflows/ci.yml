@@ -31,7 +31,9 @@ jobs:
           path: ./coverage
 
       - name: build
+        if: github.ref == 'refs/heads/main'
         run: npm run build
 
       - name: deploy
+        if: github.ref == 'refs/heads/main'
         run: echo "deploying..."
