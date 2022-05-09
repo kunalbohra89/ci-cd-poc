@@ -1,0 +1,67 @@
+name: Integration
+
+on: push
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js 16
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+        cache: 'npm'
+    - run: npm ci --cache .npm --prefer-offline
+    - name: Upload node_modules
+      uses: actions/upload-artifact@v3
+      with:
+        name: node_modules
+        path: ./node_modules
+
+  lint-test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download node_modules
+      uses: actions/download-artifact@v3
+      with:
+        name: node_modules
+    - run: npm run eslint
+   
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download node_modules
+      uses: actions/download-artifact@v3
+      with:
+        name: node_modules
+    - run: npm run test
+    - name: Upload coverage report
+      uses: actions/upload-artifact@v3
+      with:
+        name: coverage
+        path: ./coverage
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download node_modules
+      uses: actions/download-artifact@v3
+      with:
+        name: node_modules
+    - run: npm run build
+    - name: Upload build
+      uses: actions/upload-artifact@v3
+      with:
+        name: build
+        path: ./build
+      
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download build
+      uses: actions/download-artifact@v3
+      with:
+        name: build
+    - run: echo "deploying..."
+  
