@@ -13,11 +13,11 @@ jobs:
           node-version: 16
           cache: 'npm'
       - run: npm ci --cache .npm --prefer-offline
-      - name: Upload node_modules
-        uses: actions/upload-artifact@v3
+      - name: Cache node_modules
+        uses: actions/cache@v3
         with:
-          name: node_modules
           path: ./node_modules
+          key: ${{ runner.os }}-${{ hashFiles('package-lock.json') }}
 
   lint-test:
     runs-on: ubuntu-latest
